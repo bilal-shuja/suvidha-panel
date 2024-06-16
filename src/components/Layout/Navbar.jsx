@@ -64,9 +64,9 @@ const Navbar = ({toggleSidebar}) => {
                     </a>
                   </li>
                   <li>
-                    <div className="dropdown-divider" />
+                    {/* <div className="dropdown-divider" /> */}
                   </li>
-                  <li>
+                  {/* <li>
                     <a className="dropdown-item" href="#">
                       <i className="bx bx-user me-2" />
                       <span className="align-middle">My Profile</span>
@@ -86,7 +86,7 @@ const Navbar = ({toggleSidebar}) => {
                         <span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
                       </span>
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <div className="dropdown-divider" />
                   </li>

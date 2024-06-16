@@ -51,7 +51,7 @@ const LoanSheet = () => {
             <td>{items.loan_date}</td>
             <td>{items.kyc}</td>
             <td>
-              {/* <button className="btn btn-sm btn-outline-info"
+              <button className="btn btn-sm btn-outline-info"
               onClick={()=>{
                 setUserID(items.user_id)
                 setShowUserTimelineModal(true)
@@ -60,7 +60,7 @@ const LoanSheet = () => {
               }
               >
                 <i className="fa-solid fa-timeline"/>
-              </button> */}
+              </button>
             </td>
   
         
@@ -140,6 +140,7 @@ const LoanSheet = () => {
         </>
       );
     }
+
   
     const handleNextPage = () => {
       setCurrentPage((prevPage) => prevPage + 1);

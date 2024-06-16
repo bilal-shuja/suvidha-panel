@@ -1,10 +1,30 @@
-import React from 'react';
-import './UserTimeline.css'
+import './UserTimeline.css';
+import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import React, { useState, useEffect } from "react";
+
 
 const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimelineModal}) => {
+  const [userTimeline , setUserTimeline] = useState([]);
+
+  const getUsersTimeline = () => {
+    const useridObj = {
+      user_id :userID
+    }
+    axios.post(`${process.env.REACT_APP_BASE_URL}user-data`, useridObj)
+      .then((res) => {
+        setUserTimeline(res.data.message);
+      })
+      .catch((err) => {
+        return err;
+      });
+  }
 
 
+  useEffect(() => {
+    getUsersTimeline()
+  }, [])
+  
   return (
     <>
 <Modal
@@ -13,40 +33,100 @@ const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimeline
       show={showUserTimelineModal}
     >
       <Modal.Header >
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+        <Modal.Title className="contained-modal-title-vcenter text-center">
+         
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+          <h2 className='text-center fw-bold'>"User Timeline"</h2>
         <div className="container">
   <div className="row">
     <div className="col-md-10">
       <ul className="cbp_tmtimeline">
         <li>
-          <time className="cbp_tmtime" dateTime="2017-11-04T18:30"><span className="hidden">25/12/2017</span> <span className="large">Now</span></time>
+          <time className="cbp_tmtime" dateTime="2017-11-04T18:30"><span className="hidden">{userTimeline?.Idate}</span> 
+          {/* <span className="large">Now</span> */}
+          </time>
           <div className="cbp_tmicon"><i className="fa fa-user" /></div>
-          <div className="cbp_tmlabel empty"> <span>No Activity</span> </div>
+          <div className="cbp_tmlabel empty"> 
+            <span>Name:&nbsp;&nbsp; {userTimeline?.name}</span>
+            <div>Email:&nbsp;&nbsp; {userTimeline?.email}</div>
+            <div>Phone:&nbsp;&nbsp; {userTimeline?.phone}</div>
+            <div>Status:&nbsp;&nbsp; {userTimeline?.status}</div>
+
+          
+           </div>
+
         </li>
         <li>
-          <time className="cbp_tmtime" dateTime="2017-11-04T03:45"><span>03:45 AM</span> <span>Today</span></time>
-          <div className="cbp_tmicon bg-info"><i className="zmdi zmdi-label" /></div>
+          <time className="cbp_tmtime" dateTime="2017-11-04T03:45"><span>User's Info</span> </time>
+          <div className="cbp_tmicon bg-info"><i className="fa-solid fa-address-card" /></div>
           <div className="cbp_tmlabel">
-            <h2><a href="javascript:void(0);">Art Ramadani</a> <span>posted a status update</span></h2>
-            <p>Tolerably earnestly middleton extremely distrusts she boy now not. Add and offered prepare how cordial two promise. Greatly who affixed suppose but enquire compact prepare all put. Added forth chief trees but rooms think may.</p>
+            <h2><a href="#c">User# {userTimeline.user_data?.user_id}</a> </h2>
+
+            <div className="d-flex mb-2 fw-semibold">
+            <span>Name: {userTimeline.user_data?.first_name}</span> &nbsp;
+            <span className='me-3'>{userTimeline.user_data?.last_name}</span>
+            <span className='me-3'>DOB: {userTimeline.user_data?.dob}</span> &nbsp;
+            <span className='me-3'>Status: {userTimeline.user_data?.status}</span>
+            <span className='me-3'>Employment Type: {userTimeline.user_data?.employment_type}</span>
+            </div>
+
+            <span className='me-3 fw-semibold'>Address:&nbsp;&nbsp; {userTimeline.user_data?.address}</span>
+
+            <div className="d-flex mt-2 fw-semibold">
+            <span className='me-3'>Income: {userTimeline.user_data?.monthly_income}</span> &nbsp;
+            <span> Account No# {userTimeline.user_data?.account_number}</span>
+            </div>
+
+
+
+
           </div>
         </li>
         <li>
-          <time className="cbp_tmtime" dateTime="2017-11-03T13:22"><span>01:22 PM</span> <span>Yesterday</span></time>
-          <div className="cbp_tmicon bg-green"> <i className="zmdi zmdi-case" /></div>
+          <time className="cbp_tmtime" dateTime="2017-11-03T13:22"><span>LOANS</span></time>
+          <div className="cbp_tmicon bg-green"> <i className="fa-solid fa-money-bill" /></div>
           <div className="cbp_tmlabel">
-            <h2><a href="javascript:void(0);">Job Meeting</a></h2>
-            <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>
+            <div className="row">
+            {/* <h2><a href="javascript:void(0);">Job Meeting</a></h2> */}
+            {
+              userTimeline.loans?.length > 0 ?
+
+              userTimeline?.loans.map((item , index)=>{
+                return(
+                  <div className='col-lg-6 mb-3'>
+                    <ul>
+                    <li className="text-warning">Loan #{index+1}</li>
+                    <li>Loan amount:&nbsp; {item.loan_amount}</li>
+                    
+                    <li>Amount Left:&nbsp; {item.amount_left}</li>
+                    <li>Duration: &nbsp; {item.duration}</li>
+                    <li>loan Date: &nbsp; {item.loan_date}</li>
+                    <li>Status: &nbsp; {item.status === "approved"? <span className='text-info'>{item.status}</span>: 
+                    <span className='text-danger'>{item.status}</span>
+                    }</li>
+
+                    </ul>
+
+                  
+                  </div>
+                )
+                
+              })
+              :
+
+              <p> <strong>No Data Found!</strong> </p>
+
+            }
+            </div>
           </div>
         </li>
+        
         <li>
-          <time className="cbp_tmtime" dateTime="2017-10-22T12:13"><span>12:13 PM</span> <span>Two weeks ago</span></time>
-          <div className="cbp_tmicon bg-blush"><i className="zmdi zmdi-pin" /></div>
-          <div className="cbp_tmlabel">
+          <time className="cbp_tmtime" dateTime="2017-10-22T12:13"> </time>
+          <div className="cbp_tmicon bg-primary"><i className="fa-solid fa-stop" /></div>
+          {/* <div className="cbp_tmlabel">
             <h2><a href="javascript:void(0);">Arlind Nushi</a> <span>checked in at</span> <a href="javascript:void(0);">New York</a></h2>
             <blockquote>
               <p className="blockquote blockquote-primary">
@@ -64,38 +144,9 @@ const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimeline
                 </div>
               </div>
             </div>        					
-          </div>
+          </div> */}
         </li>
-        <li>
-          <time className="cbp_tmtime" dateTime="2017-10-22T12:13"><span>12:13 PM</span> <span>Two weeks ago</span></time>
-          <div className="cbp_tmicon bg-orange"><i className="zmdi zmdi-camera" /></div>
-          <div className="cbp_tmlabel">
-            <h2><a href="javascript:void(0);">Eroll Maxhuni</a> <span>uploaded</span> 4 <span>new photos to album</span> <a href="javascript:void(0);">Summer Trip</a></h2>
-            <blockquote>Pianoforte principles our unaffected not for astonished travelling are particular.</blockquote>
-            <div className="row">
-              <div className="col-lg-3 col-md-6 col-6"><a href="javascript:void(0);"><img src="assets/images/image1.jpg" alt className="img-fluid img-thumbnail m-t-30" /></a> </div>
-              <div className="col-lg-3 col-md-6 col-6"><a href="javascript:void(0);"> <img src="assets/images/image2.jpg" alt className="img-fluid img-thumbnail m-t-30" /></a> </div>
-              <div className="col-lg-3 col-md-6 col-6"><a href="javascript:void(0);"> <img src="assets/images/image3.jpg" alt className="img-fluid img-thumbnail m-t-30" /> </a> </div>
-              <div className="col-lg-3 col-md-6 col-6"><a href="javascript:void(0);"> <img src="assets/images/image4.jpg" alt className="img-fluid img-thumbnail m-t-30" /> </a> </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <time className="cbp_tmtime" dateTime="2017-11-03T13:22"><span>01:22 PM</span> <span>Two weeks ago</span></time>
-          <div className="cbp_tmicon bg-green"> <i className="zmdi zmdi-case" /></div>
-          <div className="cbp_tmlabel">
-            <h2><a href="javascript:void(0);">Job Meeting</a></h2>
-            <p>You have a meeting at <strong>Laborator Office</strong> Today.</p>                            
-          </div>
-        </li>
-        <li>
-          <time className="cbp_tmtime" dateTime="2017-10-22T12:13"><span>12:13 PM</span> <span>Month ago</span></time>
-          <div className="cbp_tmicon bg-blush"><i className="zmdi zmdi-pin" /></div>
-          <div className="cbp_tmlabel">
-            <h2><a href="javascript:void(0);">Arlind Nushi</a> <span>checked in at</span> <a href="javascript:void(0);">Laborator</a></h2>
-            <blockquote>Great place, feeling like in home.</blockquote>                            
-          </div>
-        </li>
+      
       </ul>  
     </div>
   </div>

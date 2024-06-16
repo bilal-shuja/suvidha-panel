@@ -344,13 +344,13 @@ const Sidebar = ({isVisible , toggleSidebar}) => {
         {/* Misc */}
         <li className="menu-header small text-uppercase" ><span className="menu-header-text">Misc</span></li>
         <li className="menu-item">
-          <a href="#r" target="_blank" className="menu-link">
+          <a href="#r" className="menu-link">
             <i className="menu-icon tf-icons bx bx-support" />
             <div data-i18n="Support">Support</div>
           </a>
         </li>
         <li className="menu-item">
-          <a href="#r" target="_blank" className="menu-link">
+          <a href="#r"  className="menu-link">
             <i className="menu-icon tf-icons bx bx-file" />
             <div data-i18n="Documentation">Documentation</div>
           </a>
