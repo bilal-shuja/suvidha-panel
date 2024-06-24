@@ -79,7 +79,7 @@ const SearchSection = () => {
           <div className="container-xxl flex-grow-1 container-p-y">
 
 <div className="row">
-  <div className="col-lg-10 mb-4 order-0">
+  <div className="col-lg-12 mb-4 order-0">
     <div className="card">
       <div className="d-flex align-items-end row">
         <div className="col-sm-7">

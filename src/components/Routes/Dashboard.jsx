@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import Forms from "../Forms/Forms";
 import Sheets from "../Sheets/Sheets";
 import Navbar from "../Layout/Navbar";
 import Content from "../Layout/Content";
 import Sidebar from "../Layout/Sidebar";
 
+import React, { useState , useEffect} from "react";
 import SearchSection from "../SearchOpenAi/SearchSection";
 import SearchedSection from '../SearchOpenAIResponse/SearchedSection';
 import GenerateImageArtSection from "../GenerateImageArt/GenerateImageArtSection";
@@ -26,6 +26,9 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
+
+
+
 
   return (
     <>
