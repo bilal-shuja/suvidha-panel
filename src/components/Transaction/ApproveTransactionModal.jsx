@@ -3,19 +3,20 @@ import React,{useState} from 'react';
 import { toast } from "react-toastify";
 import Modal from 'react-bootstrap/Modal';
 import "react-toastify/dist/ReactToastify.css";
-const RejectLoanModal = ({ID , showRejectLoanModal , setRejectLoanModal , getLoanList}) => {
+
+const ApproveTransactionModal = ({ID , showApproveTransactionModal , setShowApproveTransactionModal , getTransactionList}) => {
     const [loading , setLoading] = useState(false);
 
-    function submitUserLoanApproval(){
+    function submitUserTransactionApproval(){
         setLoading(true)
           const IDObj = {
-            status:"rejected"
+            transaction_id:ID
           }
-          axios.post(`${process.env.REACT_APP_BASE_URL}loans/${ID}`, IDObj)
+          axios.post(`${process.env.REACT_APP_BASE_URL}approve-transaction`, IDObj)
           .then((res)=>{
             if(res.data.status === '200'){
-                toast.error("Loan Rejected!")
-                getLoanList()
+                toast.info("Transaction Approved!")
+                getTransactionList()
         
                 setLoading(false)
               
@@ -28,7 +29,7 @@ const RejectLoanModal = ({ID , showRejectLoanModal , setRejectLoanModal , getLoa
         .catch((error)=>{
           if(error){
             setLoading(false)
-            toast.warn("Something went wrong, while rejecting loan!")
+            toast.warn("Something went wrong, while approving transaction !")
           }
           })
     
@@ -36,13 +37,13 @@ const RejectLoanModal = ({ID , showRejectLoanModal , setRejectLoanModal , getLoa
       }
   return (
     <>
-        <Modal show={showRejectLoanModal} >
+                  <Modal show={showApproveTransactionModal} >
         <Modal.Header >
-          <Modal.Title> <i className="fa-solid fa-person-circle-xmark"/> &nbsp;Reject Loan -{ID}  </Modal.Title>
+          <Modal.Title> <i className="fa-solid fa-person-circle-check"/> &nbsp;Approving Transaction -{ID}  </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to reject Loan for this user? </Modal.Body>
+        <Modal.Body>Are you sure you want to approve transaction for this user? </Modal.Body>
         <Modal.Footer>
-          <button className='btn btn-sm btn-outline-dark' onClick={()=>setRejectLoanModal(!showRejectLoanModal)}>
+          <button className='btn btn-sm btn-outline-dark' onClick={()=>setShowApproveTransactionModal(!showApproveTransactionModal)}>
             Close
           </button>
               
@@ -53,7 +54,7 @@ const RejectLoanModal = ({ID , showRejectLoanModal , setRejectLoanModal , getLoa
         </div>
         
         :
-          <button className='btn btn-sm btn-outline-primary' onClick={submitUserLoanApproval}>
+          <button className='btn btn-sm btn-outline-primary' onClick={submitUserTransactionApproval}>
             Submit
           </button>
 }
@@ -64,4 +65,4 @@ const RejectLoanModal = ({ID , showRejectLoanModal , setRejectLoanModal , getLoa
   )
 }
 
-export default RejectLoanModal
+export default ApproveTransactionModal

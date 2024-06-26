@@ -27,10 +27,17 @@ const UsersKYCSheet = () => {
     getAllKYCUsers(currentPage);
   }, [currentPage, status,search]);
 
+  const isBase64 = (str) => {
+    const base64Pattern = /^data:image\/(png|jpg|jpeg);base64,/;
+    return base64Pattern.test(str);
+  };
+
   function AllKYCUsers({ items, index }) {
     const [ID, setID] = useState("");
     const [showChangeUserKYCStatusModal, setShowChangeUserKYCStatusModal] = useState(false);
 
+
+    const isValidBase64 = isBase64(items.aadhar_card_photo);
     return (
       <>
         <tr key={items.id}>
@@ -47,6 +54,42 @@ const UsersKYCSheet = () => {
           )}
 
           <td>{items.reason === null ? "No Reason found" : items.reason}</td>
+          {
+           isValidBase64 ?
+            <td>
+            <img className="img-fluid rounded rounded-5"src={items.aadhar_card_photo} alt="aadhar_card_photo"  width={200}/>
+
+          </td>
+            :
+            <td>
+              "No image found"
+            </td>
+          }
+
+{
+           isValidBase64 ?
+            <td>
+            <img className="img-fluid rounded rounded-5"src={items.pan_card_photo} alt="pan_card_photo"  width={200}/>
+
+          </td>
+            :
+            <td>
+              "No image found"
+            </td>
+          }
+
+{
+           isValidBase64 ?
+            <td>
+            <img className="img-fluid rounded rounded-5"src={items.selfie} alt="selfie"  width={200}/>
+
+          </td>
+            :
+            <td>
+              "No image found"
+            </td>
+          }
+
           <td>{items.employment_type}</td>
           <td>{items.monthly_income}</td>
           <td>{items.account_number}</td>
@@ -150,6 +193,9 @@ const UsersKYCSheet = () => {
                         <th>Address</th>
                         <th>Status</th>
                         <th>Reason</th>
+                        <th>Adhar card image</th>
+                        <th>Pan card image</th>
+                        <th>Selfie</th>
                         <th>Employment Type</th>
                         <th>Income</th>
                         <th>Account Number</th>

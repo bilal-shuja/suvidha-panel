@@ -93,11 +93,12 @@ const Sidebar = ({isVisible , toggleSidebar}) => {
           </Link>
         </li>
 
+        {/* <li className="menu-header small text-uppercase" ><span className="menu-header-text">Users</span></li> */}
 
         <li className="menu-item mt-4">
           <Link to="/Users" className="menu-link">
             <i className="menu-icon tf-icons fa-solid fa-user" />
-            <div data-i18n="Users">Users</div>
+            <div data-i18n="Users">Users List</div>
           </Link>
         </li>
 
@@ -106,7 +107,7 @@ const Sidebar = ({isVisible , toggleSidebar}) => {
         <li className="menu-item mt-2">
           <Link to="/UsersKYCSheet" className="menu-link">
             <i className="menu-icon tf-icons fa-solid fa-file-circle-check" />
-            <div data-i18n="Explore">Users - KYC</div>
+            <div data-i18n="Explore">Users - KYC List</div>
           </Link>
         </li>
 
@@ -128,6 +129,18 @@ const Sidebar = ({isVisible , toggleSidebar}) => {
             <div data-i18n="AI Advisor">Loan List</div>
           </Link>
         </li>
+
+
+        <li className="menu-header small text-uppercase" ><span className="menu-header-text">Transactions</span></li>
+
+
+         <li className="menu-item mt-2">
+          <Link to="/TransactionSheet" className="menu-link">
+            <i className="menu-icon tf-icons fa-solid fa-money-bill" />
+            <div data-i18n="money-bill">Transactions</div>
+          </Link>
+        </li> 
+
         
        {/* <li className="menu-item mt-2">
           <Link to="/AIAdvisorSection" className="menu-link">
@@ -349,12 +362,12 @@ const Sidebar = ({isVisible , toggleSidebar}) => {
             <div data-i18n="Support">Support</div>
           </a>
         </li>
-        <li className="menu-item">
+        {/* <li className="menu-item">
           <a href="#r"  className="menu-link">
             <i className="menu-icon tf-icons bx bx-file" />
             <div data-i18n="Documentation">Documentation</div>
           </a>
-        </li>
+        </li> */}
       </ul>
 
     </div>

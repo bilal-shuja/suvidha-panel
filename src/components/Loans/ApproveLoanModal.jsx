@@ -29,7 +29,7 @@ const ApproveLoanModal = ({ID , showApproveLoanModal , setShowApproveLoanModal ,
         .catch((error)=>{
           if(error){
             setLoading(false)
-            toast.warn("Something went wrong, while updating status !")
+            toast.warn("Something went wrong, while approving loan !")
           }
           })
     

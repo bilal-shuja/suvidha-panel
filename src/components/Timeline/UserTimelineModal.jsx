@@ -122,6 +122,44 @@ const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimeline
             </div>
           </div>
         </li>
+
+        <li>
+          <time className="cbp_tmtime"><span className="hidden">Contacts</span> 
+          </time>
+          <div className="cbp_tmicon bg-danger"><i className="fa fa-address-book" /></div>
+          <div className="cbp_tmlabel empty"> 
+          <div className="card">
+      <h5 className="card-header">Contacts</h5>
+      <div className="table-responsive text-nowrap">
+        <table className="table table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+
+            </tr>
+          </thead>
+          <tbody className="table-border-bottom-0">
+            <tr>
+              <td>1</td>
+              <td>Trevor Baker</td>
+              <td>+966581222364</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jerry Milton</td>
+              <td>03212288885</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+          
+           </div>
+
+        </li>
         
         <li>
           <time className="cbp_tmtime" dateTime="2017-10-22T12:13"> </time>
