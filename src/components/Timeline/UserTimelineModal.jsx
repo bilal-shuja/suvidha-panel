@@ -91,7 +91,7 @@ const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimeline
             <div className="row">
             {/* <h2><a href="javascript:void(0);">Job Meeting</a></h2> */}
             {
-              userTimeline.loans?.length > 0 ?
+              userTimeline?.loans?.length > 0 ?
 
               userTimeline?.loans.map((item , index)=>{
                 return(
@@ -131,28 +131,40 @@ const UserTimelineModal = ({userID , showUserTimelineModal , setShowUserTimeline
           <div className="card">
       <h5 className="card-header">Contacts</h5>
       <div className="table-responsive text-nowrap">
-        <table className="table table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Phone</th>
+            {
+              userTimeline?.contacts?.contacts?.length > 0 ?
+              <table className="table table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+    
+                </tr>
+              </thead>
+              <tbody className="table-border-bottom-0">
+                {
+                  userTimeline?.contacts?.contacts?.map((item,index)=>{
+                    return(
+                      <tr key={index+1}>
+                      <td>{index+1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.phone}</td>
+                   
+                    </tr>
 
-            </tr>
-          </thead>
-          <tbody className="table-border-bottom-0">
-            <tr>
-              <td>1</td>
-              <td>Trevor Baker</td>
-              <td>+966581222364</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jerry Milton</td>
-              <td>03212288885</td>
-            </tr>
-          </tbody>
-        </table>
+                    )
+                  })
+                }
+            
+              </tbody>
+            </table>
+              :
+              <p> <strong>No Contacts Found!</strong> </p>
+
+            }
+
+
       </div>
     </div>
 
